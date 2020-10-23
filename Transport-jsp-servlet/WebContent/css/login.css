@@ -1,0 +1,55 @@
+@charset "ISO-8859-1";
+label {
+	margin-top: 5%;
+	color:#66a1ff;
+}
+
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 12px 12px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+button {
+	color: #ffffff;
+	background-color: #66a1ff ;
+	padding: 14px 20px;
+	border: none;
+	width:50%;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+
+
+.mainContainer{
+	position: fixed;
+	top:50%;
+	left:50%;
+	transform: translate(-50%,-50%);
+	width: 20vw;
+    width: 20vw;
+}
+
+.loginImg {
+	margin-bottom: 5%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.img {
+	width: 50%;
+}
+
+.loginButton {
+	margin-top: 5%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}

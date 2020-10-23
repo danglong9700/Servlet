@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.sql.Date;
 
 import org.apache.log4j.Logger;
@@ -15,14 +16,9 @@ public class Bill_Imp extends JDBCConnection implements BillDao {
 	final static Logger logger = Logger.getLogger(Bill_Imp.class);
 	
 	public static void main(String args[]) {
+		ArrayList<Bill> billList = new ArrayList();
 		Bill_Imp bill_imp = new Bill_Imp();
-		LocalDate lc1 = LocalDate.of(2020, 10, 19);
-		LocalDate lc2 = LocalDate.of(2020, 10, 22);
-		//Bill bill = new Bill(14,"Test 2", "On Road", "1A NTT", "21 IFI", lc1 , lc2 ,
-				//"Nguyen Van A", "LMAO", 1.4, 20000, 40000);
-		Bill bill = bill_imp.get(1);
-		logger.info(bill.toString());
-		
+		billList = bill_imp.getAllList();
 	}
 	
 	@Override
@@ -131,6 +127,68 @@ public class Bill_Imp extends JDBCConnection implements BillDao {
 
 	}
 	
-	
-
+	public ArrayList<Bill> getAllList() {
+		ArrayList<Bill> billList = new ArrayList<Bill>();
+		try {
+			Connection con = super.getConnection();
+			String sql = "Select * from transport_bill";
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			while(rs.next()) {
+				Bill bill = new Bill(
+						rs.getInt(1),
+						rs.getString(2),
+						rs.getString(3),
+						rs.getString(4),
+						rs.getString(5),
+						(rs.getDate(6)).toLocalDate(),
+						(rs.getDate(7)).toLocalDate(),
+						rs.getString(8),
+						rs.getString(9),
+						rs.getDouble(10),
+						rs.getInt(11),
+						rs.getInt(12)
+						);
+				billList.add(bill);
+			}
+			con.close();
+			return billList;
+		}catch (Exception e) {
+			logger.error(e);
+		}
+		return null;
+	}
+	/*
+	public ArrayList<Bill> getList(){
+		ArrayList<Bill> billList = new ArrayList<Bill>();
+		try {
+			ResultSet rs = getAll();
+			logger.fatal(rs);
+			while(rs.next()) {
+				Bill bill = new Bill(
+						rs.getInt(1),
+						rs.getString(2),
+						rs.getString(3),
+						rs.getString(4),
+						rs.getString(5),
+						(rs.getDate(6)).toLocalDate(),
+						(rs.getDate(7)).toLocalDate(),
+						rs.getString(8),
+						rs.getString(9),
+						rs.getDouble(10),
+						rs.getInt(11),
+						rs.getInt(12)
+						);
+				billList.add(bill);
+			}
+			return billList;
+		}
+		catch (Exception e) {
+			logger.error(e);
+			e.printStackTrace();
+		}
+		return null;
+		
+	}
+	*/
 }

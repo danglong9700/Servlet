@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
-import ifi.com.dao.EmployeeDao;
+import ifi.com.dao.Employee_Imp;
 
 /**
  * Servlet implementation class Login
@@ -40,12 +40,17 @@ public class Login extends HttpServlet {
 		logger.debug(uName);
 		String uPassword = request.getParameter("uPassword");
 		logger.debug(uPassword);
-		EmployeeDao employeeDao = new EmployeeDao();
+		Employee_Imp employeeDao = new Employee_Imp();
 		boolean loginValidate = employeeDao.validateLogin(uName, uPassword);
 		logger.fatal(loginValidate);
 		if (loginValidate == true) {
-			RequestDispatcher rd = request.getRequestDispatcher("/success.jsp");
-			rd.forward(request,response);
+			//RequestDispatcher rd = request.getRequestDispatcher("/success.jsp");
+			response.sendRedirect("/Transport-jsp-servlet/success");
+			logger.fatal(request);
+			logger.fatal(response);
+			//rd.forward(request,response);
+			logger.fatal(request);
+			logger.fatal(response);
 		}
 		else {
 			RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
